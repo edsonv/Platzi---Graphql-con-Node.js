@@ -5,29 +5,30 @@ const {
 } = require('@apollo/server/plugin/drainHttpServer');
 const cors = require('cors');
 const express = require('express');
+const { loadFiles } = require('@graphql-tools/load-files');
 
-const typeDefs = `#graphql
-  type Query {
-    hello: String!
-    getPerson(name: String, age: Int): String
-    getInt(number: Int!): Int
-    getFloat: Float
-    getString: String
-    getBoolean: Boolean
-    getID: ID
-    getNumbers(numbers:[Int!]!):[Int]
-    getProduct: Product
-  }
-  
-  type Product {
-    id: ID!
-    name: String!
-    price: Float!
-    description: String!
-    image: String!
-    createdAt: String!
-  }
-`;
+// const typeDefs = `#graphql
+//   type Query {
+//     hello: String!
+//     getPerson(name: String, age: Int): String
+//     getInt(number: Int!): Int
+//     getFloat: Float
+//     getString: String
+//     getBoolean: Boolean
+//     getID: ID
+//     getNumbers(numbers:[Int!]!):[Int]
+//     getProduct: Product
+//   }
+
+//   type Product {
+//     id: ID!
+//     name: String!
+//     price: Float!
+//     description: String!
+//     image: String!
+//     createdAt: String!
+//   }
+// `;
 
 const resolvers = {
   Query: {
@@ -55,7 +56,7 @@ const resolvers = {
 
 const useGraphql = async (app, httpServer) => {
   const server = new ApolloServer({
-    typeDefs,
+    typeDefs: await loadFiles('./src/**/*.graphql'),
     resolvers,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
