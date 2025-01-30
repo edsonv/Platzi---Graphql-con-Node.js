@@ -6,15 +6,19 @@ const {
 const cors = require('cors');
 const express = require('express');
 
-const typeDefs = `
+const typeDefs = `#graphql
   type Query {
     hello: String
+    getPerson(name: String, age: Int): String
   }
+  
 `;
 
 const resolvers = {
   Query: {
     hello: () => 'Hola mundo',
+    getPerson: (_, args) =>
+      `Hello, my name is ${args.name}, I am ${args.age} years old`,
   },
 };
 
