@@ -13,8 +13,10 @@ const getProducts = async (_, args) => {
   return products;
 };
 
-const addProduct = (_, args) => {
-  // code
+const addProduct = async (_, { dto }) => {
+  const newProduct = await service.create(dto);
+
+  return newProduct;
 };
 
 module.exports = { getProduct, getProducts, addProduct };
