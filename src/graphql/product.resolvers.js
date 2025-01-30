@@ -5,7 +5,7 @@ const getProduct = (_, { id }) => {
   return service.findOne(id);
 };
 
-const getProducts = (_, args) => {
+const getProducts = () => {
   return service.find({});
 };
 
