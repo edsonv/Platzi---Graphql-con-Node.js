@@ -6,6 +6,7 @@ const {
 const cors = require('cors');
 const express = require('express');
 const { loadFiles } = require('@graphql-tools/load-files');
+const resolvers = require('./resolvers');
 
 // const typeDefs = `#graphql
 //   type Query {
@@ -29,30 +30,6 @@ const { loadFiles } = require('@graphql-tools/load-files');
 //     createdAt: String!
 //   }
 // `;
-
-const resolvers = {
-  Query: {
-    hello: () => 'Hola mundo',
-    getPerson: (_, args) =>
-      `Hello, my name is ${args.name}, I am ${args.age} years old`,
-    getInt: (_, { number }) => number,
-    getFloat: (_, { number }) => number,
-    getString: () => 'Esta es una cadena',
-    getBoolean: () => true,
-    getID: () => '123123123',
-    getNumbers: (_, { numbers }) => numbers,
-    getProduct: () => {
-      return {
-        id: '1212',
-        name: 'product 1',
-        price: '100.12',
-        description: 'Bla bla bla',
-        image: 'http://image.asas',
-        createdAt: new Date().toISOString(),
-      };
-    },
-  },
-};
 
 const useGraphql = async (app, httpServer) => {
   const server = new ApolloServer({
