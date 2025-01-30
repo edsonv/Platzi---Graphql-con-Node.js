@@ -16,8 +16,17 @@ const typeDefs = `#graphql
     getBoolean: Boolean
     getID: ID
     getNumbers(numbers:[Int!]!):[Int]
+    getProduct: Product
   }
   
+  type Product {
+    id: ID!
+    name: String!
+    price: Float!
+    description: String!
+    image: String!
+    createdAt: String!
+  }
 `;
 
 const resolvers = {
@@ -31,6 +40,16 @@ const resolvers = {
     getBoolean: () => true,
     getID: () => '123123123',
     getNumbers: (_, { numbers }) => numbers,
+    getProduct: () => {
+      return {
+        id: '1212',
+        name: 'product 1',
+        price: '100.12',
+        description: 'Bla bla bla',
+        image: 'http://image.asas',
+        createdAt: new Date().toISOString(),
+      };
+    },
   },
 };
 
