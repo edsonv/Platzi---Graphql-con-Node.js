@@ -8,13 +8,14 @@ const express = require('express');
 
 const typeDefs = `#graphql
   type Query {
-    hello: String
+    hello: String!
     getPerson(name: String, age: Int): String
-    getInt(number: Int): Int
+    getInt(number: Int!): Int
     getFloat: Float
     getString: String
     getBoolean: Boolean
     getID: ID
+    getNumbers(numbers:[Int!]!):[Int]
   }
   
 `;
@@ -24,11 +25,12 @@ const resolvers = {
     hello: () => 'Hola mundo',
     getPerson: (_, args) =>
       `Hello, my name is ${args.name}, I am ${args.age} years old`,
-    getInt: (_, { number }) => 123,
-    getFloat: () => 123.5,
+    getInt: (_, { number }) => number,
+    getFloat: (_, { number }) => number,
     getString: () => 'Esta es una cadena',
     getBoolean: () => true,
     getID: () => '123123123',
+    getNumbers: (_, { numbers }) => numbers,
   },
 };
 
