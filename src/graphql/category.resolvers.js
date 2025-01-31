@@ -11,4 +11,8 @@ const addCategory = async (_, { dto }, context) => {
   return service.create({ ...dto, image: dto.image.href });
 };
 
-module.exports = { addCategory };
+const getCategory = (_, { id }) => {
+  return service.findOne(id);
+};
+
+module.exports = { addCategory, getCategory };

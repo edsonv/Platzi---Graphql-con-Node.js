@@ -21,10 +21,17 @@ const deleteProduct = (_, { id }) => {
   return service.delete(id);
 };
 
+const getProductsByCategory = (parent) => {
+  const categoryId = parent.dataValues.id;
+
+  return service.getByCategory(categoryId);
+};
+
 module.exports = {
   getProduct,
   getProducts,
   addProduct,
   updateProduct,
   deleteProduct,
+  getProductsByCategory,
 };
