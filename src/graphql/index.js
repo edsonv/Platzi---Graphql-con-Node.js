@@ -7,6 +7,7 @@ const cors = require('cors');
 const express = require('express');
 const { loadFiles } = require('@graphql-tools/load-files');
 const resolvers = require('./resolvers');
+const { buildContext } = require('graphql-passport');
 
 const useGraphql = async (app, httpServer) => {
   const server = new ApolloServer({
@@ -16,7 +17,15 @@ const useGraphql = async (app, httpServer) => {
   });
 
   await server.start();
-  app.use('/graphql', cors(), express.json(), expressMiddleware(server));
+
+  app.use(
+    '/graphql',
+    cors(),
+    express.json(),
+    expressMiddleware(server, {
+      context: ({ req, res }) => buildContext({ req, res }),
+    })
+  );
 };
 
 module.exports = { useGraphql };
