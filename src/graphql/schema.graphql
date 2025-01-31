@@ -17,7 +17,7 @@ type Mutation {
   addProduct(dto: CreateProductDTO!): Product!
   updateProduct(id: ID!, dto: UpdateProductDto!): Product
   deleteProduct(id: ID!): ID
-  login(email: String!, password: String!): AuthResponse
+  login(email: EmailAddress!, password: String!): AuthResponse
   addCategory(dto: CreateCategoryDto): Category
 }
 
@@ -26,7 +26,7 @@ type Product {
   name: String!
   price: Float!
   description: String!
-  image: String!
+  image: URL!
   createdAt: String!
   categoryId: ID!
   category: Category!
@@ -35,14 +35,14 @@ type Product {
 type Category {
   id: ID!
   name: String!
-  image: String!
+  image: URL!
 }
 
 input CreateProductDTO {
   name: String!
   price: Int!
   description: String!
-  image: String!
+  image: URL!
   categoryId: ID!
 }
 
@@ -50,7 +50,7 @@ input UpdateProductDto {
   name: String
   price: Int
   description: String
-  image: String
+  image: URL
   categoryId: ID
 }
 
@@ -61,12 +61,14 @@ type AuthResponse {
 
 type User {
   id: ID!
-  email: String!
+  email: EmailAddress!
   role: String!
   createdAt: String!
 }
 
 input CreateCategoryDto {
-  name: String
-  image: String
+  name: CategoryNameType!
+  image: URL!
 }
+
+scalar CategoryNameType
